@@ -24,9 +24,10 @@ export const createUser = async (prev,formData)=>{
        email: formData.get("email"),
    });
 
+
    if(!validateField.success){
         return{
-            error: validateField.error.flatten().fieldErrors,
+            errors: validateField.error.flatten().fieldErrors,
             success: false,
         }
    }
@@ -40,8 +41,10 @@ export const createUser = async (prev,formData)=>{
                 email,
             },
         });
-        return { user: newUser, success: true, error: false };
+
+        return { user: newUser, success: true, errors: false };
     } catch (error) {
-        return { error: { message: "Failed to create user", success: false } };
+           
+        return { error:true, success: false };
     }
 }

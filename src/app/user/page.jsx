@@ -1,26 +1,35 @@
 'use client';
 
 import {useActionState} from "react";
+
+
 import {createUser} from "@/actions/form.user";
+import {redirect} from "next/navigation";
+import page from "@/app/post/page";
 
 
 export default function User(){
-    // const form={
-    //     name:"",
-    //     email:""
-    // }
 
-    const  [state,from_Hands] = useActionState(createUser,{
-        success: false,
-        error: false,
+    const form={
+        name:"",
+        email:""
+    }
+
+    const [state,from_Hands,isPending] = useActionState(createUser,{
+        error:false,
+        success:false
     })
 
+
+ console.log(state)
     return (
         <div className="text-3">
                 <>
                     <form
-                        action={from_Hands}
+
+                         action={from_Hands}
                         className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md"
+
                     >
                         <h2 className="text-2xl font-semibold mb-4 text-center text-indigo-600">Login</h2>
                         { state.success ?
@@ -51,9 +60,10 @@ export default function User(){
                         </div>
                         <button
                             type="submit"
+                            disabled={isPending}
                             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
                         >
-                            Submit
+                            {`${isPending? "Loading":"Submit"}`}
                         </button>
                     </form>
                 </>

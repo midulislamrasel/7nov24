@@ -1,8 +1,5 @@
 import prisma from "@/prisma/client";
 
-// --------------------Import----------------------
-// export const revalidate = 1;
-
 async function fetchUser(){
     const users = await prisma.User.findMany({
         select:{
